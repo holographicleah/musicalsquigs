@@ -11,19 +11,15 @@ var friction = -0.8;
 var squigs =[];
 var mic;
 
-
 function setup() {
 
   img = loadImage("squig.png");
 
   // Create an Audio input
   mic = new p5.AudioIn();
-
-  // start the Audio Input.
-  // By default, it does not .connect() (to the computer speakers)
   mic.start();
 
-    createCanvas(windowWidth, windowHeight);
+  createCanvas(windowWidth, windowHeight);
     for (var i = 0; i < numSquigs; i++) {
 
         squigs[i] = new Squig(random(width), random(height), random(30, 200), i, squigs);
@@ -35,9 +31,7 @@ function setup() {
 }
 
 function draw() {
-    background(0);
-
-
+    background(108,255,150);
 
     for (var i = 0; i < squigs.length; i++) {
         squigs[i].collide();
@@ -85,10 +79,9 @@ function Squig(xin, yin, din, idin, oin) {
     this.move = function() {
 
       var vol = mic.getLevel();
-      print (vol*1000);
+      print (vol/1.5);
 
-      spring = vol;
-
+      spring = vol/1.5;
 
         this.vy += gravity;
         this.x += this.vx;
