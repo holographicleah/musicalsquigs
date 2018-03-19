@@ -4,9 +4,9 @@ Adapted from the Processing code found at https://processing.org/examples/bouncy
 and based on Keith Peter's Solution in Foundation Actionscript Animation: Making Things Move!
 */
 
-var numSquigs = 50;
-var spring = 0.1;
-var gravity = 0.5;
+var numSquigs = 20;
+var spring = 0.05;
+var gravity = 0.8;
 var friction = -0.8;
 var squigs =[];
 var mic;
@@ -26,7 +26,7 @@ function setup() {
     createCanvas(windowWidth, windowHeight);
     for (var i = 0; i < numSquigs; i++) {
 
-        squigs[i] = new Squig(random(width), random(height), random(30, 100), i, squigs);
+        squigs[i] = new Squig(random(width), random(height), random(30, 200), i, squigs);
 
     }
     noStroke();
@@ -36,8 +36,7 @@ function setup() {
 
 function draw() {
     background(0);
-    var vol = mic.getLevel();
-    print (vol*100);
+
 
 
     for (var i = 0; i < squigs.length; i++) {
@@ -51,6 +50,8 @@ function draw() {
 
 
 function Squig(xin, yin, din, idin, oin) {
+
+
     this.x = xin;
     this.y = yin;
     this.diameter = din;
@@ -82,6 +83,13 @@ function Squig(xin, yin, din, idin, oin) {
     }
 
     this.move = function() {
+
+      var vol = mic.getLevel();
+      print (vol*1000);
+
+      spring = vol;
+
+
         this.vy += gravity;
         this.x += this.vx;
         this.y += this.vy;
@@ -99,6 +107,7 @@ function Squig(xin, yin, din, idin, oin) {
             this.y = this.diameter / 2;
             this.vy *= friction;
         }
+
     }
 
     this.display = function() {
@@ -109,5 +118,6 @@ function Squig(xin, yin, din, idin, oin) {
         rotate( atan(this.vy/this.vx) );
         image(img, 0, 0, this.diameter, this.diameter);
         pop();
+
     }
 }
