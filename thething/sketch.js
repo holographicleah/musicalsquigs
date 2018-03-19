@@ -4,12 +4,10 @@ Adapted from the Processing code found at https://processing.org/examples/bouncy
 and based on Keith Peter's Solution in Foundation Actionscript Animation: Making Things Move!
 */
 
-var numBalls = 30;
 var numSquigs = 50;
 var spring = 0.1;
-var gravity = 0.5;
+var gravity = 0.4;
 var friction = -0.8;
-var balls = [];
 var squigs =[];
 
 
