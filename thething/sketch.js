@@ -6,14 +6,22 @@ and based on Keith Peter's Solution in Foundation Actionscript Animation: Making
 
 var numSquigs = 50;
 var spring = 0.1;
-var gravity = 0.4;
+var gravity = 0.5;
 var friction = -0.8;
 var squigs =[];
+var mic;
 
 
 function setup() {
 
   img = loadImage("squig.png");
+
+  // Create an Audio input
+  mic = new p5.AudioIn();
+
+  // start the Audio Input.
+  // By default, it does not .connect() (to the computer speakers)
+  mic.start();
 
     createCanvas(windowWidth, windowHeight);
     for (var i = 0; i < numSquigs; i++) {
@@ -28,6 +36,9 @@ function setup() {
 
 function draw() {
     background(0);
+    var vol = mic.getLevel();
+    print (vol*100);
+
 
     for (var i = 0; i < squigs.length; i++) {
         squigs[i].collide();
@@ -93,6 +104,10 @@ function Squig(xin, yin, din, idin, oin) {
     this.display = function() {
 
         image(img, this.x, this.y, this.diameter, this.diameter);
-
+        push();
+        translate(this.x,this.y)
+        rotate( atan(this.vy/this.vx) );
+        image(img, 0, 0, this.diameter, this.diameter);
+        pop();
     }
 }
